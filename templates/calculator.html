@@ -5,6 +5,77 @@
     <title>Calculator Page</title>
 </head>
 <body>
+<form id="calculator-form">
+    <fieldset>
+        <legend>TO</legend>
 
+        <label>country_to
+        <input type="text" name="country_to" required/>
+        </label>
+
+        <label>city_to
+        <input type="text" name="city_to" required/>
+        </label>
+
+        <label>street_to
+        <input type="text" name="street_to" required/>
+        </label>
+
+        <label>name_to
+        <input type="text" name="name_to" required/>
+        </label>
+
+        <label>postal_code_to
+        <input type="text" name="postal_code_to" required/>
+        </label>
+    </fieldset>
+
+    <fieldset>
+        <legend>PACKAGE - in metric - in CMs and Gs</legend>
+
+        <label>weight
+            <input type="number" name="weight" min="0.1">
+        </label>
+
+        <label>length
+            <input type="number" name="length" min="0.1">
+        </label>
+
+        <label>width
+            <input type="number" name="width" min="0.1">
+        </label>
+
+        <label>height
+            <input type="number" name="length" min="0.1">
+        </label>
+    </fieldset>
+
+    <fieldset>
+        <legend>DHL TOGGLE OPTIONS</legend>
+
+    <label class="toggle" for="dhl_customs_checkbox">
+        <span class="toggle_label">Customs Declarable? Set to "false" on default. </span>
+
+        <input type="hidden" name="dhl_is_customs_declarable" value="false">
+        <input type="checkbox" class="toggle_input" id="dhl_customs_checkbox" onchange="this.previousElementSibling.value = this.checked ? 'true' : 'false'">
+        <span class="toggle_slider"> </span>
+      </label>
+
+      <label class="toggle_second" for="dhl_next_day_checkbox">
+            <span class="toggle_label">Next Business Day</span>
+
+            <input type="hidden" name="dhl_is_next_business_day" id="dhl_is_next_business_day" value="false">
+            <input type="checkbox" class="dhl_next_day_checkbox" id="dhl_next_day_checkbox" onchange="this.previousElementSibling.value = this.checked ? 'true' : 'false'">
+
+          <span class="toggle_slider">FOR CSS TOGGLE SLIDER</span>
+
+
+  </label>
+</fieldset>
+
+
+    </label>
+
+</form>
 </body>
 </html>

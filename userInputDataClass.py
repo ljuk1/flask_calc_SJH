@@ -45,7 +45,7 @@ class ShippingRequest:
      # END === .env hard-coded options === END
 
 
-# TOGGLABLE OPTIONS
+# DHL TOGGLE OPTIONS
     dhl_is_customs_declarable: str = "false"
     dhl_is_next_business_day: str = "false"
 
