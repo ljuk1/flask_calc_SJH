@@ -1,0 +1,6 @@
+DHL EXPRESS GET RATE DOC =
+https://developer.dhl.com/api-reference/mydhl-api-dhl-express#operations-rating-exp-api-rates
+
+SHIPPO GET RATE DOC =
+https://docs.goshippo.com/docs/Shipments/RateShoppingWithCarriers
+

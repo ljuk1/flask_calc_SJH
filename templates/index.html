@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask Calculator</title>
+
+    <!-- comment start -->
+    <!-- comment:
+     * double braces are just ninja syntax for  HTML embedded python expression
+     * url_for is a Python function
+     * so: this is an example of ninja templating
+     -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- comment end -->
+
+    <!-- embed url_for function to find app.js, then defer its execution until HTML properly renders -->
+    <script src="{{ url_for("static", filename="app.js") }} defer"></script>
+
+</head>
+<body>
+    <form method="post">
+        <input type="number" name="a" required>
+        +++++
+        <input type="number" name="b" required> <br>
+
+        <button type="submit">Add</button>
+    </form>
+
+    <!-- this is a template tag, ninjas tag for conditionals, loops, end-block etc.
+    - it controls HOW the program runs, NOT the variables it displays embedded within HTML -->
+    {% if result is not none %}
+        <p>{{ result }}</p>
+    {% endif %}
+
+
+</body>
+</html>
