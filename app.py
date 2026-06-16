@@ -13,7 +13,7 @@ def index():
 
 
 ## CALCULATOR PAGE ROUTE
-@app.route("calculator", methods=["GET", "POST"])
+@app.route("/calculator", methods=["GET", "POST"])
 def calculator():
     return render_template("calculator.html")
 

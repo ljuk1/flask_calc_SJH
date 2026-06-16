@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Calculator Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 <form id="calculator-form">
@@ -31,7 +32,7 @@
     </fieldset>
 
     <fieldset>
-        <legend>PACKAGE - in metric - in CMs and Gs</legend>
+        <legend>PACKAGE (cm and grams)</legend>
 
         <label>weight
             <input type="number" name="weight" min="0.1">
@@ -46,7 +47,7 @@
         </label>
 
         <label>height
-            <input type="number" name="length" min="0.1">
+            <input type="number" name="height" min="0.1">
         </label>
     </fieldset>
 
@@ -54,25 +55,27 @@
         <legend>DHL TOGGLE OPTIONS</legend>
 
     <label class="toggle" for="dhl_customs_checkbox">
-        <span class="toggle_label">Customs Declarable? Set to "false" on default. </span>
+        <!-- whole toggle element -->
+        <span class="toggle_label">Customs Declarable? <br> Set to "false" by default. </span>
 
+        <!-- this input is where "false" and "true" get saved to-->
         <input type="hidden" name="dhl_is_customs_declarable" value="false">
         <input type="checkbox" class="toggle_input" id="dhl_customs_checkbox" onchange="this.previousElementSibling.value = this.checked ? 'true' : 'false'">
         <span class="toggle_slider"> </span>
-      </label>
+        <!-- whole toggle element -->
+    </label>
 
-      <label class="toggle_second" for="dhl_next_day_checkbox">
-            <span class="toggle_label">Next Business Day</span>
+      <label class="toggle" for="dhl_next_day_checkbox">
+          <!-- whole toggle element -->
+            <span class="toggle_label">Next Business Day? <br> Set to "false" by default.</span>
 
+           <!-- this input is where "false" and "true" get saved to-->
             <input type="hidden" name="dhl_is_next_business_day" id="dhl_is_next_business_day" value="false">
-            <input type="checkbox" class="dhl_next_day_checkbox" id="dhl_next_day_checkbox" onchange="this.previousElementSibling.value = this.checked ? 'true' : 'false'">
-
-          <span class="toggle_slider">FOR CSS TOGGLE SLIDER</span>
-
-
-  </label>
-</fieldset>
-
+            <input type="checkbox" class="toggle_input" id="dhl_next_day_checkbox" onchange="this.previousElementSibling.value = this.checked ? 'true' : 'false'">
+            <span class="toggle_slider"></span>
+          <!-- whole toggle element -->
+      </label>
+    </fieldset>
 
     </label>
 

@@ -1,1 +1,193 @@
-body { font-family: sans-serif; padding: 1rem; }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* ============================================================
+   GLOBAL & RESET
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #111827;
+
+
+  background-image: url("../static/why2.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: black;
+
+  min-height: 100vh;
+  line-height: 1.5;
+  display: grid;
+  place-items: center;
+  padding: 16px 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* FORM */
+#calculator-form {
+  width: 100%;
+  max-width: 800px;
+  background: yellowgreen;
+  padding: 20px 28px;
+  border-radius: 24px;
+  border: none;
+}
+
+/* SECTIONS(Fieldsets + Legends)*/
+fieldset {
+  border: none;
+  margin: 0 0 18px 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+fieldset:last-of-type {
+  margin-bottom: 0;
+}
+
+legend {
+  width: 100%;
+  font-size: 20px;
+  font-weight: 1200;
+  letter-spacing: 0.08em;
+  color: black;
+  padding-bottom: 6px;
+  border-bottom: 1.5px solid black;
+  margin-bottom: 12px;
+  display: block;
+}
+
+/* INPUT BOX LABELS */
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  color: black;
+  letter-spacing: 0.04em;
+}
+
+/* INPUT FIELDS */
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 500;
+  color: #111827;
+  background: #f9fafb;
+  border: 2px solid #9ca3af;
+  border-radius: 12px;
+  outline: none;
+  transition: all 0.2s ease;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+input[type="text"]::placeholder,
+input[type="number"]::placeholder {
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+input[type="text"]:hover,
+input[type="number"]:hover {
+  border-color: black;
+  background: yellow;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+  background: green;
+  border-color: black;
+  box-shadow: 0 0 0 4px rgba(17, 24, 39, 0.15);
+}
+
+.toggle {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-transform: none;
+  letter-spacing: normal;
+  padding: 6px 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.toggle_label {
+  font-size: 13px;
+  color: black;
+  font-weight: 5700;
+  flex: 1;
+  padding-right: 16px;
+  line-height: 1.4;
+}
+
+.toggle_input {
+  display: none;
+}
+
+/* The Background Pill */
+.toggle_slider {
+  position: relative;
+  width: 42px;
+  height: 26px;
+  background-color: black;
+  border-radius: 99px;
+  border: 1.5px solid yellow;
+  transition: background-color 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* The Moving Circle */
+.toggle_slider::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25); /* Punchy shadow on knob */
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Checked States */
+.toggle_input:checked ~ .toggle_slider {
+  background-color: green;
+  border-color: lawngreen;
+}
+
+.toggle_input:checked ~ .toggle_slider::after {
+  transform: translateX(16px);
+}
+
+
+.toggle_input:focus-visible ~ .toggle_slider {
+  box-shadow: 0 0 0 4px rgba(17, 24, 39, 0.2);
+}
+
+/* RESPONSIVE CSS STYLING */
+@media (max-width: 480px) {
+  #calculator-form {
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  legend {
+    font-size: 11px;
+  }
+}
