@@ -1,3 +1,4 @@
+import os
 from pprint import pprint
 from flask import Flask, render_template, request
 # CUSTOM DTO IMPORT
@@ -5,8 +6,21 @@ from userInputDataClass import ShippingRequest
 # CUSTOM METHOD IMPORTS
 from getRatesShippo import get_rates_from_shippo
 from getRatesDHL import get_rates_from_dhl
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from user import User
 
 app = Flask(__name__)
+app.secret_key = os.getenv("FLASK_SECRET_KEY", "dev_fallback_key")
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
+
+@login_manager.user_loader
+def load_user(username):
+    return User(username)
+
+
 
 ## CALCULATOR PAGE ROUTE
 @app.route("/", methods=["GET", "POST"])
