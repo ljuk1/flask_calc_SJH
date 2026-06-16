@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-<form id="calculator-form">
+<form id="calculator-form" method="POST">
     <fieldset>
         <legend>TO</legend>
 
@@ -35,19 +35,19 @@
         <legend>PACKAGE (cm and grams)</legend>
 
         <label>weight
-            <input type="number" name="weight" min="0.1">
+            <input type="number" name="weight" required>
         </label>
 
         <label>length
-            <input type="number" name="length" min="0.1">
+            <input type="number" name="length" required>
         </label>
 
         <label>width
-            <input type="number" name="width" min="0.1">
+            <input type="number" name="width" required>
         </label>
 
         <label>height
-            <input type="number" name="height" min="0.1">
+            <input type="number" name="height" required>
         </label>
     </fieldset>
 
@@ -77,8 +77,7 @@
       </label>
     </fieldset>
 
-    </label>
-
+    <button type="submit">Calculate</button>
 </form>
 </body>
 </html>
