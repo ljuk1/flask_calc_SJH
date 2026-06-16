@@ -1,7 +1,10 @@
 from pprint import pprint
 from flask import Flask, render_template, request
+# CUSTOM DTO IMPORT
 from userInputDataClass import ShippingRequest
+# CUSTOM METHOD IMPORTS
 from getRatesShippo import get_rates_from_shippo
+from getRatesDHL import get_rates_from_dhl
 
 app = Flask(__name__)
 
@@ -27,6 +30,9 @@ def calculator():
         pprint(user_input_dto.__dict__)
         shippo_rates = get_rates_from_shippo(user_input_dto)
         pprint(shippo_rates.get("rates", []))
+        dhl_rates = get_rates_from_dhl(user_input_dto)
+        pprint(dhl_rates.get("products", []))
+
 
     return render_template("calculator.html")
 

@@ -6,6 +6,7 @@ import json
 from rich.console import Console
 from rich.table import Table
 from dotenv import load_dotenv
+from userInputDataClass import ShippingRequest
 
 load_dotenv()
 
@@ -18,23 +19,24 @@ encoded_credentials = base64.b64encode(credentials.encode()).decode()
 # real URL ==> url = "https://express.api.dhl.com/mydhlapi/rates"
 url = "https://express.api.dhl.com/mydhlapi/test/rates"
 
-def get_rates_from_dhl():
+def get_rates_from_dhl(dto: ShippingRequest):
     params = {
-        "accountNumber": "423261594",
-        "originCountryCode": "CZ",
-        "originCityName": "Prague",
-        "originPostalCode": "14800",
-        "destinationCountryCode": "US",
-        "destinationCityName": "New York",
-        "destinationPostalCode": "10001",
-        "weight": 10.5,
-        "length": 25,
-        "width": 35,
-        "height": 15,
-        "plannedShippingDate": "2026-06-20",
-        "unitOfMeasurement": "metric",
-        "isCustomsDeclarable": "false",
-        "nextBusinessDay": "false"
+        "accountNumber": dto.dhl_account_number,
+        "originCountryCode": dto.both_from_country_code,
+        "originCityName": dto.both_from_city,
+        "originPostalCode": dto.both_from_zip,
+        "destinationCountryCode": dto.country_to,
+        "destinationCityName": dto.city_to,
+        "destinationPostalCode": dto.postal_code_to,
+        "weight": dto.weight,
+        "length": dto.length,
+        "width": dto.width,
+        "height": dto.height,
+        "plannedShippingDate": dto.dhl_planned_shipping_date,
+        "unitOfMeasurement": dto.dhl_unit_of_measurement,
+        "isCustomsDeclarable": dto.dhl_is_customs_declarable,
+        "nextBusinessDay": dto.dhl_is_next_business_day,
+
     }
 
     headers = {
@@ -44,14 +46,16 @@ def get_rates_from_dhl():
     response = requests.get(url, headers=headers, params=params)
 
     console = Console()
-    data = response.json()
+
+    ## I capture the API response and deserialize it
+    api_response_data = response.json()
 
     table = Table(title="DHL Rates", header_style="bold magenta")
     table.add_column("Service")
     table.add_column("Delivery Days", justify="center")
     table.add_column("Price",         justify="right", style="bold green")
 
-    for product in data.get("products", []):
+    for product in api_response_data.get("products", []):
         price    = product.get("totalPrice", [{}])[0]
         delivery = product.get("deliveryCapabilities", {})
 
@@ -62,6 +66,7 @@ def get_rates_from_dhl():
         )
 
     console.print(table)
+    return api_response_data
 
     # print(json.dumps(data, indent=2))
 
