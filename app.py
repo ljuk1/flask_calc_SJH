@@ -11,6 +11,9 @@ app = Flask(__name__)
 ## CALCULATOR PAGE ROUTE
 @app.route("/", methods=["GET", "POST"])
 def calculator():
+    shippo_rates = None
+    dhl_rates = None
+
     if request.method == "POST":
         user_input_dto = ShippingRequest(
         country_to=request.form["country_to"],
@@ -28,13 +31,13 @@ def calculator():
         ### the rest of fields are from .env, instantiated to default automatically
         )
         pprint(user_input_dto.__dict__)
-        shippo_rates = get_rates_from_shippo(user_input_dto)
-        pprint(shippo_rates.get("rates", []))
-        dhl_rates = get_rates_from_dhl(user_input_dto)
-        pprint(dhl_rates.get("products", []))
+        shippo_rates = get_rates_from_shippo(user_input_dto).get("rates", [])
+        # pprint(shippo_rates.get("rates", []))
+        dhl_rates = get_rates_from_dhl(user_input_dto).get("products", [])
+        # pprint(dhl_rates.get("products", []))
 
 
-    return render_template("calculator.html")
+    return render_template("calculator.html", shippo_rates = shippo_rates, dhl_rates = dhl_rates)
 
 
 

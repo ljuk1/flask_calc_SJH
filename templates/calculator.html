@@ -99,5 +99,60 @@
       ">Calculate
     </button>
 </form>
+
+<!-- API OUTPUT --> <!-- API OUTPUT --> <!-- API OUTPUT --> <!-- API OUTPUT --> <!-- API OUTPUT -->
+
+{% if shippo_rates or dhl_rates %}
+<section class="results">
+    <h2>Shipping Rates Results</h2>
+
+    {% if shippo_rates %}
+    <h3>Shippo Rates</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Company</th>
+            <th>Service</th>
+            <th>Amount</th>
+            <th>Days</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for rate in shippo_rates %}
+        <tr>
+            <td>{{ rate.provider }}</td>
+            <td>{{ rate.servicelevel.name }}</td>
+            <td>{{ rate.amount }}</td>
+            <td>{{ rate.estimated_days }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+<!-- SHIPPO-API-END -->
+
+    {% if dhl_rates %}
+    <h3>DHL Rates Results</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Service</th>
+            <th>Days</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in dhl_rates %}
+        <tr>
+            <td>{{ product.productName }}</td>
+            <td>{{ product.deliveryCapabilities.totalTransitDays }}</td>
+            <td>{{ product.totalPrice[0].price }} {{ product.totalPrice[0].priceCurrency}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</section>
+{% endif %}
 </body>
 </html>
