@@ -1,20 +1,12 @@
 from pprint import pprint
 from flask import Flask, render_template, request
 from userInputDataClass import ShippingRequest
+from getRatesShippo import get_rates_from_shippo
 
 app = Flask(__name__)
 
-
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    result = None
-    if request.method == 'POST':
-        result = float(request.form['a']) + float(request.form['b'])
-    return render_template('index.html', result=result)
-
-
 ## CALCULATOR PAGE ROUTE
-@app.route("/calculator", methods=["GET", "POST"])
+@app.route("/", methods=["GET", "POST"])
 def calculator():
     if request.method == "POST":
         user_input_dto = ShippingRequest(
@@ -33,7 +25,8 @@ def calculator():
         ### the rest of fields are from .env, instantiated to default automatically
         )
         pprint(user_input_dto.__dict__)
-
+        shippo_rates = get_rates_from_shippo(user_input_dto)
+        pprint(shippo_rates.get("rates", []))
 
     return render_template("calculator.html")
 

@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from rich import print_json, pretty
 from rich.console import Console
 from rich.table import Table
+from userInputDataClass import *
 
 load_dotenv()
 pretty.install()
@@ -22,7 +23,7 @@ SHIPPO_URL = "https://api.goshippo.com/shipments/"
 
 ## CREATE AN ORDER
 
-def get_rates_from_shippo():
+def get_rates_from_shippo(dto:ShippingRequest):
     headers = {
         "Authorization": f"ShippoToken {SHIPPO_API_KEY}",
         "Content-Type": "application/json",
@@ -30,33 +31,34 @@ def get_rates_from_shippo():
 
     payload = {
         "address_to":{
-            "country": "GB",
-            "name": "lukasz",
-            "street1": "Lytton Avenue 80",
-            "city": "London",
-            "zip": "EN36EN",
+            "country": dto.country_to,
+            "name": dto.name_to,
+            "street1": dto.street_to,
+            "city": dto.city_to,
+            "zip": dto.postal_code_to,
         },
         "address_from": {
-            "country": "GB",
-            "name": "lukasz",
-            "street1": "Donard Crescent 6",
-            "city": "Annalong",
-            "zip": "BT344RS",
+            "country": dto.both_from_country_code,
+            "name": dto.shippo_name_from,
+            "street1": dto.shippo_street_from,
+            "city": dto.both_from_city,
+            "zip": dto.both_from_zip,
         },
         "parcels": [{
 
-            "mass_unit": "kg",
-            "distance_unit": "cm",
-            "length": 10,
-            "width": 10,
-            "height": 10,
-            "weight": 1,
+            "mass_unit": dto.shippo_mass_unit,
+            "distance_unit": dto.shippo_distance_unit,
+            "length": dto.length,
+            "width": dto.width,
+            "height": dto.height,
+            "weight": dto.weight,
 
         }]
     }
 
     ##
     response_to_get_rates = requests.post(SHIPPO_URL, json=payload, headers=headers)
+
     response_to_get_rates_deserialised = response_to_get_rates.json()
 
     console = Console()

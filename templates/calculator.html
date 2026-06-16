@@ -8,26 +8,26 @@
 <body>
 <form id="calculator-form" method="POST">
     <fieldset>
-        <legend>TO</legend>
+        <legend>TO (DESTINATION)</legend>
 
         <label>country_to
-        <input type="text" name="country_to" required/>
+        <input type="text" name="country_to" value="GB" required/>
         </label>
 
         <label>city_to
-        <input type="text" name="city_to" required/>
+        <input type="text" name="city_to" value="London" required/>
         </label>
 
         <label>street_to
-        <input type="text" name="street_to" required/>
+        <input type="text" name="street_to" value="80 Lytton Avenue" required/>
         </label>
 
         <label>name_to
-        <input type="text" name="name_to" required/>
+        <input type="text" name="name_to" value="Alek" required/>
         </label>
 
         <label>postal_code_to
-        <input type="text" name="postal_code_to" required/>
+        <input type="text" name="postal_code_to" value="EN36EN" required/>
         </label>
     </fieldset>
 
@@ -56,7 +56,7 @@
 
     <label class="toggle" for="dhl_customs_checkbox">
         <!-- whole toggle element -->
-        <span class="toggle_label">Customs Declarable? <br> Set to "false" by default. </span>
+        <span class="toggle_label">DHL EXPRESS: Customs Declarable? <br> Set to "false" by default. </span>
 
         <!-- this input is where "false" and "true" get saved to-->
         <input type="hidden" name="dhl_is_customs_declarable" value="false">
@@ -67,7 +67,7 @@
 
       <label class="toggle" for="dhl_next_day_checkbox">
           <!-- whole toggle element -->
-            <span class="toggle_label">Next Business Day? <br> Set to "false" by default.</span>
+            <span class="toggle_label">DHL EXPRESS: Next Business Day? <br> Set to "false" by default.</span>
 
            <!-- this input is where "false" and "true" get saved to-->
             <input type="hidden" name="dhl_is_next_business_day" id="dhl_is_next_business_day" value="false">
