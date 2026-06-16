@@ -32,21 +32,21 @@
     </fieldset>
 
     <fieldset>
-        <legend>PACKAGE (cm and grams)</legend>
+        <legend>PACKAGE (cm and kg)</legend>
 
-        <label>weight
-            <input type="number" name="weight" required>
+        <label>weight (kg)
+            <input type="number" name="weight" step="0.01" required>
         </label>
 
-        <label>length
+        <label>length (cm)
             <input type="number" name="length" required>
         </label>
 
-        <label>width
+        <label>width (cm)
             <input type="number" name="width" required>
         </label>
 
-        <label>height
+        <label>height (cm)
             <input type="number" name="height" required>
         </label>
     </fieldset>
@@ -113,7 +113,8 @@
         <tr>
             <th>Company</th>
             <th>Service</th>
-            <th>Amount</th>
+            <th>Amount Raw</th>
+            <th>Henderson Amount (Banker's Rounded)</th>
             <th>Days</th>
         </tr>
         </thead>
@@ -122,7 +123,8 @@
         <tr>
             <td>{{ rate.provider }}</td>
             <td>{{ rate.servicelevel.name }}</td>
-            <td>{{ rate.amount }}</td>
+            <td>{{ rate.amount }} {{ rate.currency }}</td>
+            <td>{{ "%.2f" | format(rate.amount | float  * 1.20)}} {{ rate.currency }}</td>
             <td>{{ rate.estimated_days }}</td>
         </tr>
         {% endfor %}
@@ -137,7 +139,8 @@
         <thead>
         <tr>
             <th>Service</th>
-            <th>Amount</th>
+            <th>Amount Raw</th>
+            <th>Henderson Amount (Banker's Rounded)</th>
             <th>Days</th>
 
         </tr>
@@ -148,6 +151,7 @@
 
             <td>{{ product.productName }}</td>
             <td>{{ product.totalPrice[0].price }} {{ product.totalPrice[0].priceCurrency}}</td>
+            <td> {{ "%.2f" | format(product.totalPrice[0].price | float * 1.20) }} {{ product.totalPrice[0].priceCurrency}}</td>
             <td>{{ product.deliveryCapabilities.totalTransitDays }}</td>
 
         </tr>

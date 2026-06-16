@@ -16,8 +16,8 @@ api_secret = os.getenv("DHL_SECRET")
 credentials = f"{api_key}:{api_secret}"
 encoded_credentials = base64.b64encode(credentials.encode()).decode()
 
-# real URL ==> url = "https://express.api.dhl.com/mydhlapi/rates"
-url = "https://express.api.dhl.com/mydhlapi/test/rates"
+# test URL ==> url = "https://express.api.dhl.com/mydhlapi/test/rates"
+url = "https://express.api.dhl.com/mydhlapi/rates"
 
 def get_rates_from_dhl(dto: ShippingRequest):
     params = {
