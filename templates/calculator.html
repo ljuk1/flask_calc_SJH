@@ -107,7 +107,7 @@
     <h2>Shipping Rates Results</h2>
 
     {% if shippo_rates %}
-    <h3>Shippo Rates</h3>
+    <h3>Shippo Rates Results (UPS and FedEx)</h3>
     <table>
         <thead>
         <tr>
@@ -137,16 +137,19 @@
         <thead>
         <tr>
             <th>Service</th>
+            <th>Amount</th>
             <th>Days</th>
-            <th>Price</th>
+
         </tr>
         </thead>
         <tbody>
         {% for product in dhl_rates %}
         <tr>
+
             <td>{{ product.productName }}</td>
-            <td>{{ product.deliveryCapabilities.totalTransitDays }}</td>
             <td>{{ product.totalPrice[0].price }} {{ product.totalPrice[0].priceCurrency}}</td>
+            <td>{{ product.deliveryCapabilities.totalTransitDays }}</td>
+
         </tr>
         {% endfor %}
         </tbody>

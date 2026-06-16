@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-/* ============================================================
-   GLOBAL & RESET
-   ============================================================ */
+
 *,
 *::before,
 *::after {
@@ -126,6 +124,7 @@ input[type="number"]:focus {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* toggle text label */
 .toggle_label {
   font-size: 13px;
   color: black;
@@ -188,6 +187,66 @@ input[type="number"]:focus {
   }
 
   legend {
+    font-size: 11px;
+  }
+}
+
+.results {
+   width: 100%;
+   max-width: 800px;
+   background: yellowgreen;
+   padding: 20px 28px;
+   border-radius: 24px;
+   margin-top: 24px;
+   border: none;
+}
+
+.results h2 {
+    width: 100%;
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    color: black;
+    padding-bottom: 6px;
+    border-bottom: 1.5px solid black;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.results h3{
+  margin-top:30px;
+}
+
+.results table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.results th {
+   text-align: left;
+   font-size: 13px;
+   font-weight: 700;
+   letter-spacing: 0.04em;
+   color: black;
+   padding: 6px 8px;
+   border-bottom: 1.5px solid black;
+}
+
+.results td {
+   font-size: 13px;
+   font-weight: 500;
+   color: #111827;
+   padding: 6px 8px;
+   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 480px) {
+  .results {
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .results h2 {
     font-size: 11px;
   }
 }
