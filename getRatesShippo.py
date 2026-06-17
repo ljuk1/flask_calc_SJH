@@ -57,8 +57,8 @@ def get_rates_from_shippo(dto:ShippingRequest):
     }
 
     ##
-    response_to_get_rates = requests.post(SHIPPO_URL, json=payload, headers=headers)
-
+    response_to_get_rates = requests.post(SHIPPO_URL, json=payload, headers=headers, timeout=15)
+    response_to_get_rates.raise_for_status()
     response_to_get_rates_deserialised = response_to_get_rates.json()
 
     ## this is actually where the response from shippo goes json --> python

@@ -1,5 +1,7 @@
 import os
 from pprint import pprint
+
+import requests.exceptions
 from flask import Flask, render_template, request, url_for, redirect, flash
 # CUSTOM DTO IMPORT
 from userInputDataClass import ShippingRequest
@@ -75,11 +77,21 @@ def calculator():
 
         ### the rest of fields are from .env, instantiated to default automatically
         )
-        pprint(user_input_dto.__dict__)
-        shippo_rates = get_rates_from_shippo(user_input_dto).get("rates", [])
-        # pprint(shippo_rates.get("rates", []))
-        dhl_rates = get_rates_from_dhl(user_input_dto).get("products", [])
-        # pprint(dhl_rates.get("products", []))
+        # pprint(user_input_dto.__dict__) <<<=== uncomment if wanna console log DTO at this point
+
+        try:
+            shippo_rates = get_rates_from_shippo(user_input_dto).get("rates", [])
+            # pprint(shippo_rates.get("rates", []))
+        except (requests.exceptions.RequestException, ValueError):
+            flash("Shippo API call failed.")
+            return redirect(url_for("calculator"))
+
+        try:
+            dhl_rates = get_rates_from_dhl(user_input_dto).get("products", [])
+            # pprint(dhl_rates.get("products", []))
+        except(requests.exceptions.RequestException, ValueError):
+            flash("DHL express API call failed")
+            return redirect(url_for("calculator"))
 
 
     return render_template("calculator.html", shippo_rates = shippo_rates, dhl_rates = dhl_rates)

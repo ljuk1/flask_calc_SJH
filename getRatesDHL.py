@@ -39,10 +39,8 @@ def get_rates_from_dhl(dto: ShippingRequest):
         "Authorization": f"Basic {encoded_credentials}"
     }
 
-    response = requests.get(url, headers=headers, params=params)
-
-
-
+    response = requests.get(url, headers=headers, params=params, timeout=15)
+    response.raise_for_status()
     ## I capture the API response and deserialize it
     api_response_data = response.json()
     ## I return it
