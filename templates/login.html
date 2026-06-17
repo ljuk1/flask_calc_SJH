@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Log-in</title>
-</head>
-<body>
-
-</body>
-</html>
+     <!DOCTYPE html>                                                         
+     <html lang="en">                                                        
+     <head>                                                                  
+         <meta charset="UTF-8">                                              
+         <title>Login</title>                                                
+         <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+     </head>                                                                 
+     <body>                                                                  
+         <form id="login-form" method="POST">
+             <fieldset>                                                      
+                 <legend>Login</legend>                                      
+                                                                             
+                 <label>Username                                             
+                 <input type="text" name="username" required/>               
+                 </label>                                                    
+                                                                             
+                 <label>Password                                             
+                 <input type="text" name="password" required/>
+                 </label>                                                    
+                                                                             
+                 <button type="submit">Log in</button>                       
+             </fieldset>                                                     
+         </form>                                                             
+     </body>                                                                 
+     </html>  

@@ -1,6 +1,6 @@
 import os
 from pprint import pprint
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, redirect, flash
 # CUSTOM DTO IMPORT
 from userInputDataClass import ShippingRequest
 # CUSTOM METHOD IMPORTS
@@ -9,8 +9,15 @@ from getRatesDHL import get_rates_from_dhl
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from user import User
 
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+
+
+## LOG IN/OUT ROUTE
 app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "dev_fallback_key")
+app.config["MAX_CONTENT_LENGTH"] = 16 * 1024
+limiter = Limiter(get_remote_address, app=app, default_limits=["500 per day"])
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -20,10 +27,27 @@ login_manager.login_view = "login"
 def load_user(username):
     return User(username)
 
+@app.route("/login", methods=["GET", "POST"])
+@limiter.limit("300 per day")
+def login():
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        if User.validate(username, password):
+            login_user(User(username))
+            return redirect(url_for("calculator"))
+        flash("Wrong username or password")
+    return render_template("login.html")
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for("login"))
 
 
 ## CALCULATOR PAGE ROUTE
 @app.route("/", methods=["GET", "POST"])
+@login_required
 def calculator():
     shippo_rates = None
     dhl_rates = None
@@ -56,4 +80,4 @@ def calculator():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    app.run(debug=False, port=5001)
