@@ -30,6 +30,8 @@ def load_user(username):
 @app.route("/login", methods=["GET", "POST"])
 @limiter.limit("300 per day")
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for("calculator"))
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]

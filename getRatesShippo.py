@@ -61,23 +61,6 @@ def get_rates_from_shippo(dto:ShippingRequest):
 
     response_to_get_rates_deserialised = response_to_get_rates.json()
 
-    console = Console()
-    table = Table(title="Shippo Rates", header_style="bold magenta")
-
-    table.add_column("Provider")
-    table.add_column("Service")
-    table.add_column("Amount", justify="right")
-    table.add_column("Days", justify="right")
-
-    for rate in response_to_get_rates_deserialised.get("rates", []):
-        table.add_row(
-            rate["provider"],
-            rate["servicelevel"]["name"],
-            rate["amount"],
-            str(rate["estimated_days"]),
-        )
-
-    console.print(table)
     ## this is actually where the response from shippo goes json --> python
     return response_to_get_rates_deserialised
 

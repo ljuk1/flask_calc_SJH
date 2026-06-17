@@ -1,10 +1,6 @@
 import os
 import requests
 import base64
-from getRatesShippo import *
-import json
-from rich.console import Console
-from rich.table import Table
 from dotenv import load_dotenv
 from userInputDataClass import ShippingRequest
 
@@ -45,32 +41,12 @@ def get_rates_from_dhl(dto: ShippingRequest):
 
     response = requests.get(url, headers=headers, params=params)
 
-    console = Console()
+
 
     ## I capture the API response and deserialize it
     api_response_data = response.json()
-
-    table = Table(title="DHL Rates", header_style="bold magenta")
-    table.add_column("Service")
-    table.add_column("Delivery Days", justify="center")
-    table.add_column("Price",         justify="right", style="bold green")
-
-    for product in api_response_data.get("products", []):
-        price    = product.get("totalPrice", [{}])[0]
-        delivery = product.get("deliveryCapabilities", {})
-
-        table.add_row(
-           f"DHL EXPRESS {product.get("productName", "")}",
-            str(delivery.get("totalTransitDays", "")),
-            f"{price.get('price', '')} {price.get('priceCurrency', '')}"
-        )
-
-    console.print(table)
+    ## I return it
     return api_response_data
-
-    # print(json.dumps(data, indent=2))
-
 
 if __name__ == "__main__":
     get_rates_from_dhl()
-    # get_rates_from_shippo()
