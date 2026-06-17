@@ -1,0 +1,22 @@
+Feature: <capability / business goal>
+As a <role>
+I want <goal>
+So that <benefit>
+//
+
+Background:
+Given <common setup>
+//
+
+Scenario: <requirement title>
+Given <state/context>
+When <user/system action>
+Then <observable outcome>
+And <business rule>
+
+//
+
+Scenario Outline: <parameterized rule>
+Given <context with <placeholders>>
+When <action with <placeholders>>
+Then <result with <placeholders>>

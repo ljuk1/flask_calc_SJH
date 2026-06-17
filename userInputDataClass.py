@@ -28,7 +28,7 @@ class ShippingRequest:
 
 
     #### computed each time at instantiation
-    ### could use timedelta(days=x) to move the planned shipping data into future if that follows the business logic closer
+    ### could use timedelta(days=x) to move the planned shipping project_data into future if that follows the business logic closer
     dhl_planned_shipping_date: str = field(default_factory=lambda: (date.today().isoformat()))
 
 

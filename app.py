@@ -10,10 +10,16 @@ from getRatesShippo import get_rates_from_shippo
 from getRatesDHL import get_rates_from_dhl
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from user import User
-
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_wtf.csrf import CSRFProtect
+#ISO codes handling dependencies
+import json
+from pathlib import Path
+
+# LOAD JSON ISO2 country codes
+COUNTRY_CODES = json.loads(Path("project_data/ISO2-codes.json").read_text())
+
 
 ## LOG IN/OUT ROUTE
 app = Flask(__name__)
@@ -26,25 +32,29 @@ if not app.secret_key:
 # protect from malicious websites using existing session to send pre-made payloads
 csrf = CSRFProtect(app)
 
-#==== ACTIVATE THESE 3 RIGHT BEFORE DEPLOYMENT  ====
+#==== ACTIVATE THESE 4 RIGHT BEFORE DEPLOYMENT  ====
 
 # app.config["SESSION_COOKIE_SECURE"] = True
 # app.config["SESSION_COOKIE_HTTPONLY"] = True
 # app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+# app.config["MAX_CONTENT_LENGTH"] = 16 * 1024
 
-#==== ACTIVATE THESE 3 RIGHT BEFORE DEPLOYMENT  ====
+#==== ACTIVATE THESE 4 RIGHT BEFORE DEPLOYMENT  ====
 
-app.config["MAX_CONTENT_LENGTH"] = 16 * 1024
-limiter = Limiter(get_remote_address, app=app, default_limits=["500 per day"])
 
 login_manager = LoginManager()
-login_manager.init_app(app)
 login_manager.login_view = "login"
+login_manager.login_message = None
+login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(username):
     return User(username)
 
+
+
+
+limiter = Limiter(get_remote_address, app=app, default_limits=["500 per day"])
 @app.route("/login", methods=["GET", "POST"])
 @limiter.limit("300 per day")
 def login():
@@ -105,9 +115,9 @@ def calculator():
             return redirect(url_for("calculator"))
 
 
-    return render_template("calculator.html", shippo_rates = shippo_rates, dhl_rates = dhl_rates)
+    return render_template("calculator.html", shippo_rates = shippo_rates, dhl_rates = dhl_rates, country_codes = COUNTRY_CODES)
 
 
 
 if __name__ == '__main__':
-    app.run(debug=False, port=5001)
+    app.run(debug=True, port=5001)

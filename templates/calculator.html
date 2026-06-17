@@ -24,7 +24,14 @@
         <legend>TO (DESTINATION)</legend>
 
         <label>country_to
-        <input type="text" name="country_to" value="GB" required/>
+        <input type="text" name="country_to" value="GB" list="country-codes" required/>
+            <datalist id="country-codes">
+                {% for individual_country in country_codes %}
+                    <option value="{{ individual_country["alpha-2"] }}">
+                        {{ individual_country.name }}
+                    </option>
+                {% endfor %}
+            </datalist>
         </label>
 
         <label>city_to

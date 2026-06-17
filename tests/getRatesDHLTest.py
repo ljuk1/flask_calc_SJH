@@ -68,7 +68,7 @@
 #     console.print(table)
 #     return api_response_data
 #
-#     # print(json.dumps(data, indent=2))
+#     # print(json.dumps(project_data, indent=2))
 #
 #
 # if __name__ == "__main__":
