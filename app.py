@@ -15,7 +15,12 @@ from flask_limiter.util import get_remote_address
 
 ## LOG IN/OUT ROUTE
 app = Flask(__name__)
-app.secret_key = os.getenv("FLASK_SECRET_KEY", "dev_fallback_key")
+# session cookie key
+app.secret_key = os.getenv("FLASK_SECRET_KEY")
+if not app.secret_key:
+    raise RuntimeError("FLASK_SECRET_KEY not set")
+#
+
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024
 limiter = Limiter(get_remote_address, app=app, default_limits=["500 per day"])
 
