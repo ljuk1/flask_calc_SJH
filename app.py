@@ -34,10 +34,10 @@ csrf = CSRFProtect(app)
 
 #==== ACTIVATE THESE 4 RIGHT BEFORE DEPLOYMENT  ====
 
-# app.config["SESSION_COOKIE_SECURE"] = True
-# app.config["SESSION_COOKIE_HTTPONLY"] = True
-# app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
-# app.config["MAX_CONTENT_LENGTH"] = 16 * 1024
+app.config["SESSION_COOKIE_SECURE"] = True
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+app.config["MAX_CONTENT_LENGTH"] = 16 * 1024
 
 #==== ACTIVATE THESE 4 RIGHT BEFORE DEPLOYMENT  ====
 
@@ -119,5 +119,5 @@ def calculator():
 
 
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+# if __name__ == '__main__':
+#     app.run(debug=True, port=5001)
