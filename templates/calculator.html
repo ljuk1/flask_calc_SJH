@@ -19,6 +19,7 @@
 
 
 <form id="calculator-form" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <fieldset>
         <legend>TO (DESTINATION)</legend>
 

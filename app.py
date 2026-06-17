@@ -13,15 +13,26 @@ from user import User
 
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-
+from flask_wtf.csrf import CSRFProtect
 
 ## LOG IN/OUT ROUTE
 app = Flask(__name__)
-# session cookie key
+# session cookie key W/O default
 app.secret_key = os.getenv("FLASK_SECRET_KEY")
 if not app.secret_key:
     raise RuntimeError("FLASK_SECRET_KEY not set")
 #
+
+# protect from malicious websites using existing session to send pre-made payloads
+csrf = CSRFProtect(app)
+
+#==== ACTIVATE THESE 3 RIGHT BEFORE DEPLOYMENT  ====
+
+app.config["SESSION_COOKIE_SECURE"] = True
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+
+#==== ACTIVATE THESE 3 RIGHT BEFORE DEPLOYMENT  ====
 
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024
 limiter = Limiter(get_remote_address, app=app, default_limits=["500 per day"])
@@ -74,9 +85,9 @@ def calculator():
         height=int(request.form["height"]),
         dhl_is_customs_declarable=request.form["dhl_is_customs_declarable"],
         dhl_is_next_business_day=request.form["dhl_is_next_business_day"],
-
-        ### the rest of fields are from .env, instantiated to default automatically
         )
+        ### the rest of fields are from .env, instantiated to default automatically
+
         # pprint(user_input_dto.__dict__) <<<=== uncomment if wanna console log DTO at this point
 
         try:
@@ -98,5 +109,5 @@ def calculator():
 
 
 
-if __name__ == '__main__':
-    app.run(debug=False, port=5001)
+# if __name__ == '__main__':
+#     app.run(debug=False, port=5001)
