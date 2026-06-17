@@ -1,6 +1,5 @@
 import os
 from pprint import pprint
-
 import requests.exceptions
 from flask import Flask, render_template, request, url_for, redirect, flash
 # CUSTOM DTO IMPORT
@@ -34,10 +33,10 @@ csrf = CSRFProtect(app)
 
 #==== ACTIVATE THESE 4 RIGHT BEFORE DEPLOYMENT  ====
 
-# app.config["SESSION_COOKIE_SECURE"] = True
-# app.config["SESSION_COOKIE_HTTPONLY"] = True
-# app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
-# app.config["MAX_CONTENT_LENGTH"] = 16 * 1024
+app.config["SESSION_COOKIE_SECURE"] = True
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+app.config["MAX_CONTENT_LENGTH"] = 16 * 1024
 
 #==== ACTIVATE THESE 4 RIGHT BEFORE DEPLOYMENT  ====
 
